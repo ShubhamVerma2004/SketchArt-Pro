@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SketchArt And AI Chatbot</title>
+    <link rel="stylesheet" href="css/chat.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Navbar -->
+        <nav class="chat-navbar">
+            <div class="navbar-brand">
+                <span class="material-icons">smart_toy</span>
+                <h1>AI Assistant And SketchArt </h1>
+            </div>
+            <div class="navbar-actions">
+                <button id="new-chat" class="btn-primary">
+                    <span class="material-icons">add</span> New Chat
+                </button>
+                <button id="toggle-sidebar" class="material-icons">menu</button>
+            </div>
+        </nav>
+
+        <div class="chat-main">
+            <!-- Sidebar - Chat History -->
+            <aside class="chat-sidebar">
+                <div class="sidebar-header">
+                    <h3>Chat History</h3>
+                    <button id="clear-history" class="material-icons" title="Clear all history">delete</button>
+                </div>
+                <div class="sidebar-content" id="history-list">
+                    <!-- History items will be added here -->
+                </div>
+            </aside>
+
+            <!-- Main Chat Area -->
+            <main class="chat-content">
+                <div class="chat-body" id="chat-body">
+                    <!-- Messages will appear here -->
+                </div>
+
+                <div class="chat-footer">
+                    <form class="chat-form">
+                        <div class="file-preview" id="file-preview"></div>
+                        <textarea class="message-input" placeholder="Type your message..." required></textarea>
+                        <div class="chat-controls">
+                            <button type="button" id="emoji-btn" class="material-icons">emoji_emotions</button>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="file-upload" multiple accept="image/*,.pdf,.doc,.docx,.txt" hidden>
+                                <button type="button" id="file-input" class="material-icons">attach_file</button>
+                            </div>
+                            <button type="submit" id="send-message" class="material-icons">send</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/chat.js"></script>
+</body>
+</html>

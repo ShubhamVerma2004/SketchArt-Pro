@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SketchArt Pro | Advanced Image to Sketch Converter</title>
+    <script src="https://docs.opencv.org/4.5.1/opencv.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="css/Message.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+            SketchArt Pro
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#converter">Converter</a>
+            <a href="Chatsuport.html" target="_blank">Chat AI Assistant</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!--Chat bot section -->
+
+    <button id="open-chatbot" class="chatbot-launcher">
+        <span class="material-icons">chat</span>
+    </button>
+
+    <div class="chatbot-popup">
+        <div class="chat-header">
+            <div class="header-info">
+                <div class="bot-avatar">
+                    <span class="material-icons">smart_toy</span>
+                </div>
+                <h2 class="logo-text">AI Assistant</h2>
+            </div>
+            <div class="header-actions">
+                <button id="chat-history-btn" class="material-icons">history</button>
+                <button id="close-chatbot" class="material-icons">close</button>
+            </div>
+        </div>
+
+        <div class="chat-body">
+            <div class="message bot-message">
+                <!-- <div class="bot-avatar">
+                    <span class="material-icons">smart_toy</span>
+                </div>
+                <div class="message-text">
+                    Hello! How can I help you today?
+                </div> -->
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <form class="chat-form">
+                <div class="file-preview" id="file-preview"></div>
+                <textarea class="message-input" placeholder="Type your message..." required></textarea>
+                <div class="chat-controls">
+                    <button type="button" id="emoji-btn" class="material-icons">emoji_emotions</button>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="file-upload" multiple accept="image/*,.pdf,.doc,.docx,.txt" hidden>
+                        <button type="button" id="file-input" class="material-icons">attach_file</button>
+                    </div>
+                    <button type="submit" id="send-message" class="material-icons">send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="history-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chat History</h3>
+                <button id="close-history" class="material-icons">close</button>
+            </div>
+            <div class="modal-body" id="history-list">
+                <!-- History items will be added here -->
+            </div>
+            <div class="modal-footer">
+                <button id="clear-history" class="btn-danger">Clear All History</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Transform Your Photos into Stunning Sketches</h1>
+            <p class="hero-subtitle">Convert any image into beautiful pencil sketches with our advanced AI-powered tool. Perfect for artists, designers, and photo enthusiasts.</p>
+            <a href="#converter" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Try It Now
+            </a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Example sketch">
+        </div>
+    </section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="container">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">Discover what makes SketchArt Pro the best image-to-sketch converter</p>
+        
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                </div>
+                <h3>Multiple Sketch Styles</h3>
+                <p>Choose from pencil, charcoal, ink, and watercolor sketch effects to match your artistic vision.</p>
+                <div class="feature-preview">
+                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Sketch styles preview" class="preview-image">
+                    <div class="style-options">
+                        <button class="style-option active" data-style="pencil">Pencil</button>
+                        <button class="style-option" data-style="charcoal">Charcoal</button>
+                        <button class="style-option" data-style="ink">Ink</button>
+                        <button class="style-option" data-style="watercolor">Watercolor</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </div>
+                <h3>Advanced Customization</h3>
+                <p>Fine-tune every detail with our professional-grade adjustment tools for perfect results.</p>
+                <div class="feature-interactive">
+                    <div class="adjustment-control">
+                        <label>Blur Intensity</label>
+                        <input type="range" min="1" max="100" value="50" class="feature-slider">
+                    </div>
+                    <div class="adjustment-control">
+                        <label>Contrast</label>
+                        <input type="range" min="1" max="100" value="50" class="feature-slider">
+                    </div>
+                    <button class="btn btn-outline apply-btn">Apply Changes</button>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        <path d="M18 10h.01"></path>
+                        <path d="M12 2a10 10 0 0 0-9.17 14.93"></path>
+                    </svg>
+                </div>
+                <h3>Real-Time Preview</h3>
+                <p>See changes instantly as you adjust settings, with no waiting for processing.</p>
+                <div class="preview-comparison">
+                    <div class="image-comparison">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Original">
+                            <span>Original</span>
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Sketch">
+                            <span>Sketch</span>
+                        </div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="comparison-slider">
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <h3>High-Quality Exports</h3>
+                <p>Download your sketches in high resolution (up to 4K) with no watermarks or quality loss.</p>
+                <div class="export-options">
+                    <div class="format-option">
+                        <input type="radio" id="format-png" name="export-format" checked>
+                        <label for="format-png">PNG</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="format-jpg" name="export-format">
+                        <label for="format-jpg">JPG</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="format-pdf" name="export-format">
+                        <label for="format-pdf">PDF</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="format-svg" name="export-format">
+                        <label for="format-svg">SVG</label>
+                    </div>
+                </div>
+                <button class="btn btn-primary download-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Sample
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Main Content -->
+    <main class="container" id="converter">
+        <h2 class="section-title">Image to Sketch Converter</h2>
+        
+        <div class="loading" id="opencvLoading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading OpenCV library...</p>
+        </div>
+        
+        <div class="upload-area" id="dropArea">
+            <div class="upload-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </div>
+            <h3>Drag & Drop your image here</h3>
+            <p class="or-text">or</p>
+            <input type="file" id="imageInput" class="file-input" accept="image/*">
+            <button class="upload-btn" id="uploadBtn" disabled>Loading...</button>
+            <p class="error-message" id="errorMessage">Please select a valid image file</p>
+        </div>
+        
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Processing your image... <span id="progressText">0%</span></p>
+            <progress id="processingProgress" value="0" max="100"></progress>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-group-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>Basic Settings</span>
+                </div>
+                <label for="blurSlider">Blur Intensity</label>
+                <div class="slider-container">
+                    <input type="range" id="blurSlider" min="1" max="51" step="2" value="21">
+                    <span class="value-display" id="blurValue">21</span>
+                </div>
+                
+                <label for="contrastSlider">Contrast</label>
+                <div class="slider-container">
+                    <input type="range" id="contrastSlider" min="100" max="500" step="10" value="256">
+                    <span class="value-display" id="contrastValue">256</span>
+                </div>
+                
+                <label for="invertToggle">Invert Colors</label>
+                <div class="toggle-container">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="invertToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="invertStatus">Off</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-group-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                    <span>Color Settings</span>
+                </div>
+                <label>Sketch Color</label>
+                <div class="color-picker-container">
+                    <div class="color-options">
+                        <div class="color-option selected" style="background-color: #000000;" data-color="black" title="Black">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="color-option" style="background-color: #8B4513;" data-color="brown" title="Brown">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="color-option" style="background-color: #FF0000;" data-color="red" title="Red">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="color-option" style="background-color: #0000FF;" data-color="blue" title="Blue">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="color-option" style="background-color: #008000;" data-color="green" title="Green">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="color-option" style="background-color: #800080;" data-color="purple" title="Purple">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-color-container">
+                        <span class="custom-color-label">Custom:</span>
+                        <input type="color" id="customColorInput" class="custom-color-input" value="#FF69B4">
+                        <div class="color-option" id="customColorOption" style="background-color: #FF69B4;" data-color="custom" title="Custom Color">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results" id="resultsSection" style="display: none;">
+            <div class="image-container">
+                <h3 class="image-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    <span>Original Image</span>
+                </h3>
+                <canvas id="originalCanvas"></canvas>
+            </div>
+            
+            <div class="image-container">
+                <h3 class="image-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                    <span>Pencil Sketch</span>
+                </h3>
+                <canvas id="sketchCanvas"></canvas>
+            </div>
+        </div>
+        
+        <div class="action-buttons" id="actionButtons" style="display: none;">
+            <button class="btn btn-primary" id="downloadButton">
+                <span class="btn-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </span>
+                Download Sketch
+            </button>
+            <button class="btn btn-outline" id="resetButton">
+                <span class="btn-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <polyline points="23 20 23 14 17 14"></polyline>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                    </svg>
+                </span>
+                Reset
+            </button>
+        </div>
+    </main>
+
+<!-- How It Works Section -->
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Transform your photos into beautiful sketches in just 3 simple steps</p>
+        
+        <div class="process-steps">
+            <!-- Step 1 -->
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3>Upload Your Image</h3>
+                    <p>Drag & drop your photo or click to browse files. We support JPG, PNG, and WEBP formats up to 5MB.</p>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3>Customize Your Sketch</h3>
+                    <p>Adjust settings like blur intensity, contrast, and sketch color to achieve your desired artistic effect.</p>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </div>
+                    <h3>Download & Share</h3>
+                    <p>Save your high-quality sketch in PNG format or share directly to social media platforms.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-video">
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <button class="play-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        </svg>
+                    </button>
+                    <img src="https://images.unsplash.com/photo-1551969014-7d2c4cddf0b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Video thumbnail" class="video-thumbnail">
+                </div>
+                <p class="video-caption">Watch our 1-minute tutorial video</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p>Have questions or feedback? We'd love to hear from you!</p>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <a href="mailto:contact@sketchartpro.com">contact@sketchartpro.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <a href="tel:+11234567890">+1 (123) 456-7890</a>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Address</h4>
+                        <p>123 Sketch Street, Art District<br>San Francisco, CA 94110</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#converter">Converter</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+            <p class="copyright">© 2023 SketchArt Pro. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="js/script.js"></script>
+
+<script src="js/MessageAi.js"></script>
+  
+</body>
+</html>
