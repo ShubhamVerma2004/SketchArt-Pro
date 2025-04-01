@@ -1283,7 +1283,7 @@
             margin-top: 30px;
         }
 
-        @media (min-width: 992px) {
+        @media (min-width: 998px) {
             .contact-container {
                 flex-direction: row;
             }
